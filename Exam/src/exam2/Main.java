@@ -30,7 +30,7 @@ public class Main {
 		return listBook;
 	}
 	public static void main(String[] args) {
-		List<Book> listBook = getListBook(new File("C:\\Users\\DucHai\\Desktop\\Book.txt"));
+		List<Book> listBook = getListBook(new File("C:\\Users\\DucHai\\git\\repository3\\Exam\\src\\txt\\Book.txt"));
 		System.out.println("Tong so sach : " + listBook.size());
 		System.out.println(listBook);
 		Collections.sort(listBook);
