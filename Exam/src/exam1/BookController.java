@@ -2,83 +2,80 @@ package exam1;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class BookController extends Input implements Activity, Search {
 
 	private List<Book> listBook = new ArrayList<>();
 	
 	public void menu() {
-		Scanner sc = new Scanner(System.in);
-		while(true) {			
-			System.out.println("--------MENU--------");
-			System.out.println("1. Them");
-			System.out.println("2. Sua");
-			System.out.println("3. Xoa");
-			System.out.println("4. Tim kiem");
-			System.out.println("5. Thoat");
-			System.out.print("--> Nhap lua chon cua ban: ");
-			String check = sc.nextLine();
-			int choice = 0;
-			try {
-				choice = Integer.parseInt(check);
-				if(choice < 1 || choice > 5) {
-					throw new NumberFormatException();
-				}
-			} catch (NumberFormatException e) {
-				System.out.println("Ban nhap khong dung. Vui long nhap lai !");
-			}
+		System.out.println("--------MENU--------");
+		System.out.println("1. Add");
+		System.out.println("2. Edit");
+		System.out.println("3. Remove");
+		System.out.println("4. Search");
+		System.out.println("5. Exit");
+		System.out.print("--> Enter your choice: ");
+		int choice = inputScannerInt();
+		while(true) {
 			if(choice == 1) {
 				add();
 				menu();
-			} else if (choice == 2) {
+			} else if(choice == 2) {
 				edit();
 				menu();
-			}
-			else if (choice == 3) {
+			} else if(choice == 3) {
 				remove();
 				menu();
-			}
-			else if (choice == 4) {
-				System.out.println("Name: ");
-				String name = sc.nextLine();
+			} else if(choice == 4) {
+				System.out.print("Name you want to search: ");
+				String name = inputScannerString();
 				searchByName(name);
 				menu();
-			}
-			else if (choice == 5) {
+			} else if(choice == 5) {
+				System.out.println("GOOD BYE !!!");
 				break;
 			}
 		}
 	}
 	
-	
 	@Override
 	public void searchByName(String name) {
-		int count = 0;
+		int cnt = 0;
 		for(Book book : listBook) {
 			if(book.getName().toLowerCase().contains(name.toLowerCase())) {
-				count++;
 				System.out.println(book);
+				cnt++;
 			}
 		}
-		if(count == 0) {
-			System.out.println("Khong tim thay");
+		if(cnt == 0) {
+			System.out.println("Can not find");
 		}
 	}
+
+	@Override
+	public void add() {
+		System.out.print("ID: ");
+		int id = inputScannerInt();
+		System.out.print("Name: ");
+		String name = inputScannerString();
+		System.out.print("Publisher: ");
+		String publisher = inputScannerString();
+		listBook.add(new Book(id, name, publisher));
+	}
 	
-	public boolean checkID(String id) {
-		boolean check = false;
+	public boolean checkID(int id) {
+		boolean chk = false;
 		for(Book book : listBook) {
-			if(book.getId().equals(id)) {
-				check = true;
+			if(book.getId() == id) {
+				chk = true;
 			}
 		}
-		return check;
+		return chk;
 	}
 	
-	public int getIndex(String id) {
+	public int getIndexByID(int id) {
 		for(int i = 0; i < listBook.size(); i++) {
-			if(listBook.get(i).getId().equals(id)) {
+			if(listBook.get(i).getId() == id) {
 				return i;
 			}
 		}
@@ -86,56 +83,38 @@ public class BookController extends Input implements Activity, Search {
 	}
 
 	@Override
-	public void add() {
-		Scanner sc = new Scanner(System.in);
-		System.out.print("ID: ");
-		String id = sc.nextLine();
-		if(!checkID(id)) {
-			System.out.print("Name: ");
-			String name = sc.nextLine();
-			System.out.print("Cost: ");
-			double cost = sc.nextDouble();
-			sc.nextLine();
-			Book book = new Book(id, name, cost);
-			listBook.add(book);
-			System.out.println("Ban da them thong tin sach thanh cong !");
-		} else {
-			System.out.println("ID nay da bi trung !");
-		}
-		
-		
-	}
-
-	@Override
 	public void edit() {
-		Scanner sc = new Scanner(System.in);
-		System.out.print("ID can sua: ");
-		String id = sc.nextLine();
+		System.out.print("ID you want to edit: ");
+		int id = inputScannerInt();
 		if(checkID(id)) {
 			System.out.print("Name: ");
-			String name = sc.nextLine();
-			System.out.print("Cost: ");
-			double cost = sc.nextDouble();
-			sc.nextLine();
-			Book book = new Book(id, name, cost);
-			listBook.set(getIndex(book.getId()), book);
-			System.out.println("Ban da sua thong tin sach thanh cong !");
+			String name = inputScannerString();
+			System.out.print("Publisher: ");
+			String publisher = inputScannerString();
+			listBook.set(getIndexByID(id), new Book(id, name, publisher));
 		} else {
-			System.out.println("ID nay khong ton tai !");
+			System.out.println("ID does not exist");
 		}
 	}
 
 	@Override
 	public void remove() {
-		Scanner sc = new Scanner(System.in);
-		System.out.print("ID can xoa: ");
-		String id = sc.nextLine();
+		System.out.print("ID you want to remove: ");
+		int id = inputScannerInt();
 		if(checkID(id)) {
-			listBook.remove(getIndex(id));
-			System.out.println("Ban da xoa thong tin sach thanh cong !");
+			listBook.remove(getIndexByID(id));
 		} else {
-			System.out.println("ID nay khong ton tai !");
+			System.out.println("ID does not exist");
 		}
+		
 	}
-	
+
+	public List<Book> getListBook() {
+		return listBook;
+	}
+
+	public void setListBook(List<Book> listBook) {
+		this.listBook = listBook;
+	}
+
 }

@@ -17,7 +17,7 @@ public class Main {
 				FileReader fileReader = new FileReader(file);
 				Scanner sc = new Scanner(fileReader);
 		) {
-			while(sc.hasNext()) {
+			while(sc.hasNext()) { 
 				StringTokenizer str = new StringTokenizer(sc.nextLine(), ";");
 				Book book = new Book(Integer.parseInt(str.nextToken()), str.nextToken(), str.nextToken());
 				listBook.add(book);

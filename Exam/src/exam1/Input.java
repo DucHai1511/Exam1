@@ -6,22 +6,32 @@ public class Input {
 	public int inputScannerInt() {
 		Scanner sc = new Scanner(System.in);
 		while(true) {
-			String check;
-			System.out.print("Input: ");
-			check = sc.nextLine();
-			int x;
 			try {
-				x = Integer.parseInt(check);
+				int x = sc.nextInt();
 				return x;
-			} catch (NumberFormatException e) {
-				System.out.println("Ban nhap sai. Vui long nhap lai !");
+			}catch (Exception e) {
+				System.out.println("Invalid !");
+			}finally {
+				sc.nextLine();
 			}
 		}
+		
 	}
 	
 	public String inputScannerString() {
 		Scanner sc = new Scanner(System.in);
-		System.out.print("String: ");
-		return sc.nextLine();
+		while(true) {
+			try {
+				String str = sc.nextLine();
+				if(str.equals("")) {
+					throw new Exception();
+				} else {
+					return str;
+				}
+			}catch (Exception e) {
+				System.out.println("Invalid !");
+			}
+		}
+		
 	}
 }

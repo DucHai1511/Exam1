@@ -1,24 +1,20 @@
 package exam1;
 
 public class Book {
-	private String id, name;
-	private double cost;
+	private int id;
+	private String name, publisher;
 	
-	public Book() {
-		
-	}
-	
-	public Book(String id, String name, double cost) {
+	public Book(int id, String name, String publisher) {
 		this.id = id;
 		this.name = name;
-		this.cost = cost;
+		this.publisher = publisher;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -30,17 +26,17 @@ public class Book {
 		this.name = name;
 	}
 
-	public double getCost() {
-		return cost;
+	public String getPublisher() {
+		return publisher;
 	}
 
-	public void setCost(double cost) {
-		this.cost = cost;
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
 	}
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", name=" + name + ", cost=" + cost + "]";
+		return "Book [id=" + id + ", name=" + name + ", publisher=" + publisher + "]";
 	}
 	
 	
